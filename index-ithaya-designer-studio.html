@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#060917">
+<title>Share your experience · Ithaya Designer Studio</title>
+<meta name="description" content="Tell us how it went — takes about 20 seconds.">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  /* Midnight base */
+  --night-0:#060917;
+  --night-1:#0B1030;
+  --royal:#16326B;
+
+  /* Champagne / gold */
+  --gold:#E3C27E;
+  --gold-hi:#F6E3B4;
+  --gold-deep:#B8912F;
+  --gold-ink:#1C1503;
+  --gold-line:rgba(227,194,126,.24);
+  --gold-line-soft:rgba(227,194,126,.12);
+  --gold-glow:rgba(227,194,126,.22);
+
+  /* Type */
+  --text:#F4F3F8;
+  --text-2:#B9BED4;
+  --text-3:#7F86A3;
+
+  /* Glass */
+  --glass:linear-gradient(180deg, rgba(255,255,255,.062), rgba(255,255,255,.022));
+
+  /* Brand accent */
+  --accent:#1B4FA0;
+  --accent-glow:rgba(27,79,160,.34);
+
+  --r-card:30px;
+  --r-ctl:16px;
+  --r-pill:999px;
+
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+
+  --ease:cubic-bezier(.22,.75,.28,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;padding:24px 16px calc(24px + env(safe-area-inset-bottom));
+  min-height:100dvh;
+  font-family:var(--sans);
+  color:var(--text);
+  background:
+    radial-gradient(900px 520px at 50% -8%, var(--royal) 0%, transparent 62%),
+    radial-gradient(700px 420px at 100% 100%, rgba(22,50,107,.55) 0%, transparent 60%),
+    linear-gradient(180deg,#080D22 0%, var(--night-0) 100%);
+  background-attachment:fixed;
+  display:flex;flex-direction:column;align-items:center;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SHELL + CARD
+   ═══════════════════════════════════════════════════════════ */
+.shell{width:100%;max-width:440px;display:flex;flex-direction:column;flex:1}
+
+.card{
+  position:relative;
+  background:var(--glass);
+  border:1px solid var(--gold-line);
+  border-radius:var(--r-card);
+  padding:30px 22px 26px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.07) inset,
+    0 -30px 60px -40px var(--accent-glow) inset,
+    0 40px 90px -40px rgba(0,0,0,.95);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  animation:cardIn .6s var(--ease) both;
+  overflow:hidden;
+}
+.card::before{
+  content:"";position:absolute;top:0;left:14%;right:14%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:.65;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* ═══════════════════════════════════════════════════════════
+   CREST / BRAND HEADER
+   ═══════════════════════════════════════════════════════════ */
+.crest{text-align:center;margin:0 0 22px}
+.mark{
+  position:relative;width:66px;height:66px;margin:0 auto 14px;
+  border-radius:20px;
+  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+  border:1px solid var(--gold-line);
+  display:grid;place-items:center;
+  font-family:var(--serif);font-size:22px;letter-spacing:.02em;color:var(--gold);
+  overflow:hidden;
+  box-shadow:0 0 0 6px rgba(255,255,255,.02), 0 18px 40px -20px var(--accent-glow);
+}
+.mark img{width:100%;height:100%;object-fit:cover;display:block}
+.biz-name{
+  font-family:var(--serif);font-size:23px;line-height:1.22;font-weight:500;
+  letter-spacing:.005em;margin:0;
+}
+.branch{
+  display:inline-block;margin:9px 0 0;padding:5px 13px;
+  font-size:12px;line-height:1.4;color:var(--gold);
+  border:1px solid var(--gold-line-soft);border-radius:var(--r-pill);
+  background:rgba(227,194,126,.05);
+}
+.biz-sub{font-size:12.5px;color:var(--text-3);margin:9px 0 0;letter-spacing:.01em}
+
+.rule{
+  height:1px;margin:22px 0;
+  background:linear-gradient(90deg,transparent,var(--gold-line),transparent);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TYPE
+   ═══════════════════════════════════════════════════════════ */
+h1,h2{font-family:var(--serif);font-weight:500;letter-spacing:.004em;margin:0}
+h1{font-size:24px;line-height:1.3}
+h2{font-size:18.5px;line-height:1.35;margin:0 0 10px}
+.lede{font-size:14.5px;line-height:1.55;color:var(--text-2);margin:8px 0 0}
+
+/* ═══════════════════════════════════════════════════════════
+   STARS
+   ═══════════════════════════════════════════════════════════ */
+.rate{text-align:center}
+.rate h1{margin-bottom:20px}
+.stars-wrap{position:relative;display:inline-block;border-radius:20px;overflow:hidden;padding:2px}
+.stars{display:flex;justify-content:center;gap:4px}
+.star{
+  -webkit-tap-highlight-color:transparent;
+  appearance:none;background:none;border:0;margin:0;padding:5px;
+  cursor:pointer;line-height:0;border-radius:14px;
+  transition:transform .2s var(--ease);
+}
+.star svg{width:46px;height:46px;display:block}
+.star .body{fill:rgba(255,255,255,.06);stroke:rgba(227,194,126,.34);stroke-width:1.1;transition:fill .22s ease,stroke .22s ease}
+.star.lit .body{fill:url(#goldFill);stroke:var(--gold-hi)}
+.star.lit{filter:drop-shadow(0 3px 12px var(--gold-glow))}
+.star:active{transform:scale(.9)}
+.star.pop{animation:starPop .42s var(--ease)}
+@keyframes starPop{0%{transform:scale(1)}45%{transform:scale(1.22)}100%{transform:scale(1)}}
+.star:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.stars-wrap.sweep::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);
+  transform:translateX(-120%);
+  animation:sweep .85s var(--ease) forwards;
+  mix-blend-mode:overlay;
+}
+@keyframes sweep{to{transform:translateX(120%)}}
+
+.verdict{
+  margin:14px 0 0;min-height:24px;
+  font-family:var(--serif);font-size:16.5px;color:var(--text-3);
+  transition:color .25s ease;
+}
+.verdict.set{color:var(--gold-hi)}
+
+.strip{display:flex;justify-content:center;gap:3px;margin:0 0 14px}
+.strip svg{width:17px;height:17px}
+.strip .body{fill:var(--gold);stroke:none}
+
+/* ═══════════════════════════════════════════════════════════
+   REVEAL PANELS
+   ═══════════════════════════════════════════════════════════ */
+.panel{display:none}
+.panel.open{display:block;animation:reveal .42s var(--ease) both}
+@keyframes reveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+.field{margin:0 0 16px}
+.label{display:block;font-size:13.5px;font-weight:600;color:var(--text-2);margin:0 0 9px;letter-spacing:.01em}
+.label .opt{font-weight:400;color:var(--text-3)}
+
+textarea,input[type="text"]{
+  width:100%;font-family:inherit;font-size:16px;color:var(--text);
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:var(--r-ctl);
+  padding:14px 15px;
+  transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+textarea{min-height:104px;line-height:1.6;resize:vertical}
+textarea:focus,input:focus{
+  outline:none;border-color:var(--gold-line);
+  background:rgba(255,255,255,.06);
+  box-shadow:0 0 0 3px rgba(227,194,126,.10);
+}
+textarea::placeholder,input::placeholder{color:var(--text-3)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  -webkit-tap-highlight-color:transparent;
+  appearance:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:500;
+  color:var(--text-2);background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.12);border-radius:var(--r-pill);
+  padding:9px 15px;min-height:40px;
+  transition:all .18s var(--ease);
+}
+.chip:active{transform:scale(.95)}
+.chip[aria-pressed="true"]{
+  color:var(--gold-hi);
+  background:linear-gradient(180deg, rgba(227,194,126,.16), rgba(227,194,126,.07));
+  border-color:var(--gold-line);
+  box-shadow:0 0 18px -6px var(--gold-glow);
+}
+.chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ═══════════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════════ */
+.btn{
+  -webkit-tap-highlight-color:transparent;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  width:100%;min-height:56px;padding:15px 18px;margin:0;
+  font-family:inherit;font-size:16.5px;font-weight:650;letter-spacing:.005em;
+  color:var(--gold-ink);
+  background:linear-gradient(180deg,var(--gold-hi) 0%,var(--gold) 45%,var(--gold-deep) 100%);
+  border:0;border-radius:var(--r-ctl);cursor:pointer;
+  box-shadow:0 1px 0 rgba(255,255,255,.45) inset, 0 14px 34px -16px var(--gold-glow);
+  transition:transform .14s var(--ease),opacity .2s ease;
+}
+.btn:active{transform:scale(.985)}
+.btn:disabled{opacity:.34;box-shadow:none;cursor:not-allowed}
+.btn:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+
+.btn-ghost{
+  background:rgba(255,255,255,.045);color:var(--text-2);
+  border:1px solid rgba(255,255,255,.13);
+  box-shadow:none;min-height:48px;font-size:15px;font-weight:560;
+}
+
+.btn-text{
+  appearance:none;background:none;border:0;cursor:pointer;width:100%;
+  font-family:inherit;font-size:14px;font-weight:540;color:var(--text-3);
+  padding:13px 8px;border-radius:10px;
+}
+.btn-text:hover{color:var(--text-2)}
+.btn-text:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.actions{margin-top:20px;display:flex;flex-direction:column;gap:8px}
+
+/* ═══════════════════════════════════════════════════════════
+   GENERATING
+   ═══════════════════════════════════════════════════════════ */
+.gen{padding:16px 0 4px;text-align:center}
+.gen-lines{display:flex;flex-direction:column;gap:10px;margin:0 0 18px}
+.gen-lines i{
+  height:12px;border-radius:6px;
+  background:linear-gradient(90deg,rgba(255,255,255,.05) 0%,rgba(227,194,126,.22) 45%,rgba(255,255,255,.05) 90%);
+  background-size:220% 100%;
+  animation:shimmer 1.15s linear infinite;
+}
+.gen-lines i:nth-child(2){width:88%;animation-delay:.1s}
+.gen-lines i:nth-child(3){width:62%;animation-delay:.2s}
+@keyframes shimmer{from{background-position:130% 0}to{background-position:-130% 0}}
+.gen-status{font-family:var(--serif);font-size:15.5px;color:var(--gold);margin:0}
+
+/* ═══════════════════════════════════════════════════════════
+   REVIEW STATE
+   ═══════════════════════════════════════════════════════════ */
+.review-head{text-align:center;margin:0 0 16px}
+#reviewText{min-height:268px;font-size:16px;line-height:1.62}
+.helper{
+  font-size:12.5px;color:var(--text-3);text-align:center;
+  margin:12px 0 0;line-height:1.5;
+}
+.helper.copied{color:var(--gold)}
+
+/* ═══════════════════════════════════════════════════════════
+   THANK YOU
+   ═══════════════════════════════════════════════════════════ */
+.done{text-align:center;padding:14px 0 6px}
+.seal{
+  width:70px;height:70px;margin:0 auto 20px;border-radius:50%;
+  border:1px solid var(--gold-line);
+  background:radial-gradient(circle at 50% 30%, rgba(227,194,126,.22), rgba(255,255,255,.02));
+  display:grid;place-items:center;font-size:28px;color:var(--gold-hi);
+  box-shadow:0 0 40px -12px var(--gold-glow);
+  animation:seal .6s var(--ease) both;
+}
+@keyframes seal{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:none}}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════ */
+.foot{
+  text-align:center;margin-top:auto;padding:24px 8px 4px;
+  font-size:11.5px;line-height:1.7;color:rgba(127,134,163,.8);letter-spacing:.03em;
+}
+.foot b{font-weight:600;color:var(--text-3);letter-spacing:.06em}
+
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+@media (max-width:360px){
+  .card{padding:26px 18px 22px}
+  .star svg{width:39px;height:39px}
+  .star{padding:3px}
+  h1{font-size:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+
+<!-- shared gold gradient for the stars -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <linearGradient id="goldFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F6E3B4"/>
+      <stop offset="55%" stop-color="#E3C27E"/>
+      <stop offset="100%" stop-color="#B8912F"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="shell">
+  <main class="card">
+
+    <div class="crest">
+      <div class="mark" id="mark"></div>
+      <p class="biz-name" id="bizName">Ithaya Designer Studio</p>
+      <p class="branch" id="bizBranch">Bangalore</p>
+      <p class="biz-sub" id="bizSub">Takes about 20 seconds</p>
+    </div>
+
+    <!-- ── STATE 1: RATE + DYNAMIC REVEAL ─────────────────── -->
+    <section id="stateRate">
+      <div class="rate">
+        <h1 id="rateTitle">How was your experience?</h1>
+        <div class="stars-wrap" id="starsWrap">
+          <div class="stars" id="stars" role="radiogroup" aria-label="Rating out of five stars"></div>
+        </div>
+        <p class="verdict" id="verdict">Tap to rate</p>
+      </div>
+
+      <!-- 4–5 stars -->
+      <div class="panel" id="panelHigh">
+        <div class="rule"></div>
+        <div class="field">
+          <label class="label" for="highText">Tell us about your experience</label>
+          <textarea id="highText" placeholder="What did you get made, and how did it turn out?"></textarea>
+        </div>
+        <div class="field">
+          <div class="chips" id="highChips"></div>
+        </div>
+        <div class="actions">
+          <button class="btn" id="generateBtn" disabled>✨ Write my review</button>
+        </div>
+      </div>
+
+      <!-- 1–2 stars -->
+      <div class="panel" id="panelLow">
+        <div class="rule"></div>
+        <h2>Sorry it didn't go the way it should have.</h2>
+        <p class="lede" style="margin-bottom:18px">This goes straight to the studio. It isn't posted publicly.</p>
+        <div class="field">
+          <label class="label sr" for="lowText">What went wrong?</label>
+          <textarea id="lowText" placeholder="What went wrong?"></textarea>
+        </div>
+        <div class="field">
+          <label class="label" for="lowContact">Would you like us to contact you? <span class="opt">— optional</span></label>
+          <input type="text" id="lowContact" placeholder="Phone or email" autocomplete="tel">
+        </div>
+        <div class="actions">
+          <button class="btn" id="lowBtn" disabled>Send private feedback</button>
+        </div>
+      </div>
+
+      <!-- 3 stars -->
+      <div class="panel" id="panelMid">
+        <div class="rule"></div>
+        <h2>Thanks for your feedback.</h2>
+        <p class="lede" style="margin-bottom:18px">What would have made this better?</p>
+        <div class="field">
+          <label class="label sr" for="midText">What would have made this better?</label>
+          <textarea id="midText" placeholder="In your own words…"></textarea>
+        </div>
+        <div class="field">
+          <label class="label" for="midContact">Would you like us to contact you? <span class="opt">— optional</span></label>
+          <input type="text" id="midContact" placeholder="Phone or email" autocomplete="tel">
+        </div>
+        <div class="actions">
+          <button class="btn" id="midBtn" disabled>Send feedback</button>
+        </div>
+      </div>
+
+      <!-- inline generation -->
+      <div class="panel" id="panelGen">
+        <div class="rule"></div>
+        <div class="gen">
+          <div class="gen-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+          <p class="gen-status" id="genStatus" role="status">Writing your review…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STATE 2: GENERATED REVIEW ──────────────────────── -->
+    <section id="stateReview" hidden>
+      <div class="strip" id="strip" aria-hidden="true"></div>
+      <div class="review-head"><h1>Your review</h1></div>
+      <label class="sr" for="reviewText">Your review — edit it freely</label>
+      <textarea id="reviewText"></textarea>
+      <div class="actions">
+        <button class="btn" id="googleBtn">⭐ Continue to Google</button>
+        <button class="btn-text" id="againBtn">Write a different one</button>
+        <button class="btn-text" id="editBtn">Edit review</button>
+      </div>
+      <p class="helper" id="helper">Your review will be copied automatically.</p>
+    </section>
+
+    <!-- ── STATE 3: THANK YOU ─────────────────────────────── -->
+    <section id="stateDone" hidden>
+      <div class="done">
+        <div class="seal" aria-hidden="true">✦</div>
+        <h1 id="doneTitle">Thank you</h1>
+        <p class="lede" id="doneLede"></p>
+      </div>
+      <div class="actions" id="doneActions" hidden>
+        <button class="btn btn-ghost" id="doneGoogle">Leave a public review too</button>
+      </div>
+    </section>
+
+  </main>
+
+  <p class="foot">
+    <b>ITHAYA DESIGNER STUDIO</b><br>
+    Add the studio address here
+  </p>
+</div>
+
+<script>
+"use strict";
+
+/* ═══════════════════════════════════════════════════════════
+   1 · BRANCH CONFIGURATION
+   One page, one branch. Everything the branch needs is here.
+   ═══════════════════════════════════════════════════════════ */
+const BRANCH = {
+  name: "Ithaya Designer Studio",
+  branch: "Bangalore",   // 👈 area or branch name
+  address: "Add the studio address here",
+  logo: "assets/ithaya-logo.png",   // 👈 drop the logo file here; falls back to an "ID" monogram
+  monogram: "ID",
+  noun: "visit",
+
+  // 👇 GOOGLE REVIEW LINK FOR THIS BRANCH
+  googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJfTIyCb8VrjsRib3BijlYpLg",
+
+  // Offer the Google link even after a 1–3 star private feedback submission.
+  alwaysOfferGoogleLink: false
+};
+
+/* ═══════════════════════════════════════════════════════════
+   KEYWORD POOL
+   Six chips are drawn at random from this pool each time the
+   page loads, so no two reviews start from the same shortlist.
+   Add or remove lines freely — each chip carries the sentences
+   it can turn into further down in SENTENCES.
+   ═══════════════════════════════════════════════════════════ */
+const TAG_POOL = [
+  "Perfect fit", "Beautiful designs", "Fine stitching", "Delivered on time",
+  "Friendly staff", "Fair pricing", "Understood my idea", "Quality fabric",
+  "Blouse stitching", "Bridal wear", "Custom outfit", "Quick alterations",
+  "Good design suggestions", "Neat finishing", "Patient with changes",
+  "Happy with the outfit", "Lovely collection", "Easy to find"
+];
+
+const TAGS_SHOWN = 6;
+let TAGS = {};   // rebuilt on every shuffle
+
+/* ═══════════════════════════════════════════════════════════
+   2 · BACKEND INTEGRATION POINTS
+   The only network boundary. Swap the mock bodies for fetch().
+   ═══════════════════════════════════════════════════════════ */
+const ReviewAPI = {
+  /* → POST /api/reviews/generate  { rating, notes, tags } */
+  async generateReview(payload){
+    await wait(900 + Math.random()*250);
+    return { review: composeReview(payload) };
+  },
+
+  /* → POST /api/feedback  (private, never published) */
+  async submitFeedback(data){
+    await wait(500);
+    console.info("[mock] feedback", data);
+    return { ok:true, id:"mock_" + Date.now() };
+  },
+
+  /* → POST /api/events */
+  trackEvent(name, props){ console.info("[mock] event", name, props || {}); }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   3 · STATE + HELPERS
+   ═══════════════════════════════════════════════════════════ */
+const state = { rating:0, tags:[], notes:"", review:"", variant:0 };
+
+const $  = s => document.querySelector(s);
+const $$ = s => Array.prototype.slice.call(document.querySelectorAll(s));
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+/* ═══════════════════════════════════════════════════════════
+   4 · BRANDING
+   ═══════════════════════════════════════════════════════════ */
+function initBranding(){
+  $("#bizName").textContent   = BRANCH.name;
+  $("#bizBranch").textContent = BRANCH.branch;
+  document.title = "Share your experience · " + BRANCH.name;
+
+  const mark = $("#mark");
+  mark.textContent = BRANCH.monogram;
+  if (BRANCH.logo){
+    const img = new Image();
+    img.alt = "";
+    img.onload = () => { mark.textContent = ""; mark.appendChild(img); };
+    img.src = BRANCH.logo;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   5 · STARS
+   ═══════════════════════════════════════════════════════════ */
+const VERDICT = ["","Not good","Below expectations","It was okay","Great","Loved it"];
+const STAR_D = "M12 2.4l2.95 6.02 6.65.97-4.81 4.68 1.14 6.61L12 17.56 6.07 20.68l1.14-6.61L2.4 9.39l6.65-.97L12 2.4z";
+
+function starSVG(){
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="body" d="'+STAR_D+'"/></svg>';
+}
+
+function buildStars(){
+  const wrap = $("#stars");
+  for (let i=1;i<=5;i++){
+    const b = document.createElement("button");
+    b.className = "star"; b.type = "button";
+    b.setAttribute("role","radio");
+    b.setAttribute("aria-checked","false");
+    b.setAttribute("aria-label", i + (i===1?" star":" stars"));
+    b.tabIndex = i===1 ? 0 : -1;
+    b.innerHTML = starSVG();
+    b.addEventListener("click", () => setRating(i));
+    b.addEventListener("pointerenter", () => paintStars(i));
+    b.addEventListener("pointerleave", () => paintStars(state.rating));
+    b.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight" || e.key === "ArrowUp"){ e.preventDefault(); jump(Math.min(5,i+1)); }
+      if (e.key === "ArrowLeft"  || e.key === "ArrowDown"){ e.preventDefault(); jump(Math.max(1,i-1)); }
+    });
+    wrap.appendChild(b);
+  }
+}
+
+function jump(n){ const b = $$(".star")[n-1]; if (b){ b.focus(); paintStars(n); } }
+
+function paintStars(n){
+  $$(".star").forEach((b,i) => b.classList.toggle("lit", i < n));
+  const v = $("#verdict");
+  v.textContent = n ? VERDICT[n] : "Tap to rate";
+  v.classList.toggle("set", !!n);
+}
+
+function branchOf(r){ return r >= 4 ? "high" : (r === 3 ? "mid" : "low"); }
+
+function setRating(n){
+  const changed = state.rating && branchOf(state.rating) !== branchOf(n);
+  if (changed) resetPanels();
+
+  state.rating = n;
+  $$(".star").forEach((b,i) => {
+    b.setAttribute("aria-checked", i === n-1 ? "true":"false");
+    b.tabIndex = i === n-1 ? 0 : -1;
+  });
+  paintStars(n);
+
+  const hit = $$(".star")[n-1];
+  hit.classList.remove("pop"); void hit.offsetWidth; hit.classList.add("pop");
+  const wrap = $("#starsWrap");
+  wrap.classList.remove("sweep"); void wrap.offsetWidth; wrap.classList.add("sweep");
+
+  ReviewAPI.trackEvent("rating_selected", { rating:n });
+  openPanel(branchOf(n));
+}
+
+function resetPanels(){
+  state.tags.length = 0;
+  $$(".chip").forEach(c => c.setAttribute("aria-pressed","false"));
+  ["#generateBtn","#lowBtn","#midBtn"].forEach(s => { $(s).disabled = true; });
+}
+
+function openPanel(which){
+  $$(".panel").forEach(p => p.classList.remove("open"));
+  const map = { high:"#panelHigh", mid:"#panelMid", low:"#panelLow", gen:"#panelGen" };
+  const el = $(map[which]);
+  if (!el) return;
+  el.classList.add("open");
+  setTimeout(() => el.scrollIntoView({ behavior:"smooth", block:"nearest" }), 90);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   6 · TAGS
+   ═══════════════════════════════════════════════════════════ */
+function shuffleTags(){
+  TAGS = {};
+  shuffle(TAG_POOL).slice(0, TAGS_SHOWN).forEach(t => { TAGS[t] = t; });
+  state.tags.length = 0;
+}
+
+function buildChips(){
+  const wrap = $("#highChips");
+  wrap.innerHTML = "";
+  Object.keys(TAGS).forEach(text => {
+    const b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.textContent = text;
+    b.setAttribute("aria-pressed","false");
+    b.addEventListener("click", () => {
+      const on = b.getAttribute("aria-pressed") === "true";
+      b.setAttribute("aria-pressed", on ? "false":"true");
+      const i = state.tags.indexOf(text);
+      if (on){ if (i > -1) state.tags.splice(i,1); }
+      else if (i === -1){ state.tags.push(text); }
+      validate();
+    });
+    wrap.appendChild(b);
+  });
+}
+
+function validate(){
+  $("#generateBtn").disabled = !(state.tags.length || $("#highText").value.trim().length > 2);
+  $("#lowBtn").disabled = $("#lowText").value.trim().length < 3;
+  $("#midBtn").disabled = $("#midText").value.trim().length < 3;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   7 · REVIEW WRITER (mock)
+   Composes ONLY from the rating, the customer's own words and
+   the tags they picked. Never invents people, outfits or events.
+   ═══════════════════════════════════════════════════════════ */
+/* Sentence bank. Each chip maps to several ways of saying the
+   same thing, so the same chip almost never produces the same
+   line twice. */
+const SENTENCES = {
+  "Perfect fit": [
+    "The fitting was spot on.",
+    "Fits perfectly, didn't need a single change.",
+    "Got the fit exactly right the first time."
+  ],
+  "Beautiful designs": [
+    "Their designs are really beautiful.",
+    "Loved the design work, very elegant.",
+    "Some really lovely designs to pick from."
+  ],
+  "Fine stitching": [
+    "Stitching is neat and properly done.",
+    "The stitching quality is really good.",
+    "Very fine work on the stitching."
+  ],
+  "Delivered on time": [
+    "Got it back on the date they promised.",
+    "Delivered right on time, no chasing needed.",
+    "Ready well before I needed it."
+  ],
+  "Friendly staff": [
+    "Everyone at the studio was friendly and welcoming.",
+    "Very warm and easy to talk to.",
+    "The team here is really friendly."
+  ],
+  "Fair pricing": [
+    "Charges were reasonable for the work.",
+    "Pricing is fair for the quality you get.",
+    "Didn't feel overcharged at all."
+  ],
+  "Understood my idea": [
+    "They understood exactly what I had in mind.",
+    "Showed them a reference and they got it straight away.",
+    "Turned my rough idea into exactly what I wanted."
+  ],
+  "Quality fabric": [
+    "Fabric quality is really good.",
+    "They helped me pick a good material.",
+    "Nice quality fabric, feels great to wear."
+  ],
+  "Blouse stitching": [
+    "Got a blouse stitched here and it came out lovely.",
+    "The blouse came out exactly how I wanted.",
+    "Best blouse stitching I've had done so far."
+  ],
+  "Bridal wear": [
+    "They did my bridal outfit and it was stunning.",
+    "Got my wedding outfit done here, everyone loved it.",
+    "Bridal work was absolutely beautiful."
+  ],
+  "Custom outfit": [
+    "Got a custom outfit made and it turned out great.",
+    "The custom piece they made was exactly right.",
+    "Loved the outfit they designed for me."
+  ],
+  "Quick alterations": [
+    "Alterations were done quickly.",
+    "Sorted out the alterations without any fuss.",
+    "Quick turnaround on the alterations."
+  ],
+  "Good design suggestions": [
+    "They gave some really good suggestions on the design.",
+    "Helped me decide on the neckline and sleeves.",
+    "Their suggestions made the outfit so much better."
+  ],
+  "Neat finishing": [
+    "Finishing is really neat.",
+    "Every detail was finished properly.",
+    "Clean finishing, no loose threads anywhere."
+  ],
+  "Patient with changes": [
+    "They were patient when I kept changing my mind.",
+    "Didn't mind making a few changes after the first trial.",
+    "Very patient with all my requests."
+  ],
+  "Happy with the outfit": [
+    "Really happy with how the outfit turned out.",
+    "Got so many compliments when I wore it.",
+    "The final result was even better than I expected."
+  ],
+  "Lovely collection": [
+    "They have a lovely collection in the studio.",
+    "Nice range of designs and fabrics to choose from."
+  ],
+  "Easy to find": [
+    "Easy enough to find.",
+    "Simple to locate once you're nearby."
+  ]
+};
+
+/* Openings, fillers and closings — a fresh combination each run. */
+const OPEN = {
+  5: [
+    "Got my outfit done at {b} in {br} and loved it.",
+    "Went to {b} in {br} for some stitching work.",
+    "Really glad I picked {b} in {br}.",
+    "{b} in {br} did a beautiful job.",
+    "Had a great experience with {b}, {br}.",
+    "{b} in {br} is my go-to now."
+  ],
+  4: [
+    "Went to {b} in {br} recently.",
+    "Had a good experience with {b}, {br}.",
+    "Got some work done at {b} in {br}.",
+    "{b} in {br} sorted me out.",
+    "Tried {b} at {br}."
+  ]
+};
+
+const MIDDLE = [
+  "Had been looking for a good designer for a while.",
+  "Was a bit nervous handing over the fabric, but no need.",
+  "Was my first time here.",
+  "Tried a couple of tailors nearby before this.",
+  "Went in with just a rough idea of what I wanted.",
+  "Needed it for a function, so timing mattered."
+];
+
+const CLOSE = {
+  5: [
+    "Would definitely recommend this studio.",
+    "Will be going back for my next outfit.",
+    "Recommend it if you're around this area.",
+    "Great studio, no complaints at all.",
+    "Thanks to the whole team there.",
+    "Happy with the whole experience."
+  ],
+  4: [
+    "Would recommend.",
+    "Worth a visit if you're nearby.",
+    "Happy with how it went.",
+    "Decent studio.",
+    "No complaints."
+  ]
+};
+
+/* ── helpers ─────────────────────────────────────────────── */
+function pickOne(a){ return a[Math.floor(Math.random()*a.length)]; }
+
+function shuffle(a){
+  const c = a.slice();
+  for (let i=c.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    const t = c[i]; c[i] = c[j]; c[j] = t;
+  }
+  return c;
+}
+
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+
+function tidy(t){
+  let s = String(t||"").trim().replace(/\s+/g," ");
+  if (!s) return "";
+  s = cap(s);
+  if (!/[.!?]$/.test(s)) s += ".";
+  return s;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   THE WRITER
+   Builds a fresh ~10 line review every single run: the opening,
+   the filler line, the order of the middle sentences and every
+   individual phrasing are all drawn at random. Nothing is
+   claimed that the customer didn't tick or type.
+   ═══════════════════════════════════════════════════════════ */
+const TARGET_LINES = 10;
+
+/* Keywords naming a specific service. They only appear when the
+   customer ticks them, never as filler, so a review never claims
+   a bridal outfit from someone who came in for an alteration. */
+const SERVICE_ONLY = {
+  "Blouse stitching": true, "Bridal wear": true,
+  "Custom outfit": true, "Quick alterations": true
+};
+
+function composeReview(p){
+  const lines = [];
+
+  /* 1 · opening */
+  lines.push(
+    pickOne(OPEN[p.rating] || OPEN[4])
+      .replace("{b}", p.businessName)
+      .replace("{br}", p.branchName)
+      .replace("{n}", p.noun)
+  );
+
+  /* 2 · the customer's own words, if they wrote any */
+  const note = tidy(p.notes);
+  if (note) lines.push(note);
+
+  /* 3 · a bit of human filler, most of the time */
+  if (Math.random() < 0.75) lines.push(pickOne(MIDDLE));
+
+  /* 4 · one line per chip they ticked, in random order */
+  shuffle(p.tags).forEach(tag => {
+    const bank = SENTENCES[tag];
+    lines.push(bank ? pickOne(bank) : cap(tag.toLowerCase()) + ".");
+  });
+
+  /* 5 · top up from unticked chips until it reads about ten
+         lines long, so short selections still give a full review */
+  const used = {};
+  p.tags.forEach(t => { used[t] = true; });
+  const spare = shuffle(Object.keys(SENTENCES).filter(t => !used[t] && !SERVICE_ONLY[t]));
+  while (lines.length < TARGET_LINES - 1 && spare.length){
+    lines.push(pickOne(SENTENCES[spare.pop()]));
+  }
+
+  /* 6 · closing */
+  lines.push(pickOne(CLOSE[p.rating] || CLOSE[4]));
+
+  return lines.join(" ");
+}
+
+const GEN_MSGS = ["Writing your review…","Polishing your words…","Almost ready…"];
+
+async function generate(){
+  state.notes = $("#highText").value.trim();
+  openPanel("gen");
+
+  let i = 0;
+  const status = $("#genStatus");
+  const tick = setInterval(() => { i = (i+1) % GEN_MSGS.length; status.textContent = GEN_MSGS[i]; }, 420);
+
+  const payload = {
+    rating: state.rating, notes: state.notes, tags: state.tags,
+    businessName: BRANCH.name, branchName: BRANCH.branch,
+    noun: BRANCH.noun, variant: state.variant
+  };
+
+  let review;
+  try {
+    const res = await ReviewAPI.generateReview(payload);
+    review = res.review;
+  } catch (e){
+    console.error(e);
+    review = composeReview(Object.assign({}, payload, { variant:0 }));
+  }
+  clearInterval(tick);
+
+  state.review = review;
+  showReview();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   8 · STATE SWITCHING (three states, no navigation)
+   ═══════════════════════════════════════════════════════════ */
+function setState(name){
+  $("#stateRate").hidden   = name !== "rate";
+  $("#stateReview").hidden = name !== "review";
+  $("#stateDone").hidden   = name !== "done";
+  window.scrollTo({ top:0, behavior:"smooth" });
+  ReviewAPI.trackEvent("state_view", { state:name, rating:state.rating });
+}
+
+function showReview(){
+  const strip = $("#strip");
+  strip.innerHTML = "";
+  for (let i=0;i<state.rating;i++) strip.insertAdjacentHTML("beforeend", starSVG());
+
+  $("#reviewText").value = state.review;
+  $("#reviewText").dataset.notes = state.notes;
+  setState("review");
+}
+
+/* ═══════════════════════════════════════════════════════════
+   9 · CLIPBOARD + GOOGLE
+   ═══════════════════════════════════════════════════════════ */
+function copyText(text){
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    return navigator.clipboard.writeText(text).catch(fallbackCopy.bind(null, text));
+  }
+  return Promise.resolve(fallbackCopy(text));
+}
+
+function fallbackCopy(text){
+  const ta = document.createElement("textarea");
+  ta.value = text; ta.setAttribute("readonly","");
+  ta.style.position = "fixed"; ta.style.top = "0"; ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select(); ta.setSelectionRange(0, text.length);
+  try { document.execCommand("copy"); } catch (e){ /* clipboard unavailable */ }
+  document.body.removeChild(ta);
+}
+
+async function continueToGoogle(){
+  state.review = $("#reviewText").value.trim();
+  const helper = $("#helper");
+
+  await copyText(state.review);
+  helper.classList.add("copied");
+  helper.textContent = "Your review has been copied. Paste it into Google.";
+
+  ReviewAPI.trackEvent("google_redirect", { rating:state.rating });
+
+  setTimeout(() => {
+    window.open(BRANCH.googleReviewUrl, "_blank", "noopener");
+    $("#doneTitle").textContent = "Thank you";
+    $("#doneLede").textContent = "Your review is on your clipboard — paste it into Google. It means a lot to the team here.";
+    $("#doneActions").hidden = true;
+    setState("done");
+  }, 700);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   10 · PRIVATE FEEDBACK
+   ═══════════════════════════════════════════════════════════ */
+function sendFeedback(kind){
+  const low = kind === "low";
+  const btn = $(low ? "#lowBtn" : "#midBtn");
+  const original = btn.textContent;
+  btn.disabled = true; btn.textContent = "Sending…";
+
+  const payload = {
+    type: low ? "private_negative" : "neutral",
+    business: BRANCH.name,
+    branch: BRANCH.branch,
+    rating: state.rating,
+    comments: $(low ? "#lowText" : "#midText").value.trim(),
+    contact: $(low ? "#lowContact" : "#midContact").value.trim(),
+    at: new Date().toISOString()
+  };
+
+  ReviewAPI.submitFeedback(payload).then(() => {
+    $("#doneTitle").textContent = "Thank you";
+    $("#doneLede").textContent = payload.contact
+      ? "This went straight to the studio. Someone will get back to you."
+      : "This went straight to the studio. We appreciate you taking the time.";
+    $("#doneActions").hidden = !BRANCH.alwaysOfferGoogleLink;
+    setState("done");
+  }).catch(() => {
+    btn.disabled = false; btn.textContent = original;
+    const holder = btn.parentNode;
+    let err = holder.querySelector(".send-error");
+    if (!err){
+      err = document.createElement("p");
+      err.className = "helper send-error";
+      holder.appendChild(err);
+    }
+    err.textContent = "That didn't send. Check your connection and try again.";
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   11 · WIRING
+   ═══════════════════════════════════════════════════════════ */
+function init(){
+  initBranding();
+  buildStars();
+  shuffleTags();
+  buildChips();
+
+  ["#highText","#lowText","#midText"].forEach(s => $(s).addEventListener("input", validate));
+
+  $("#generateBtn").addEventListener("click", generate);
+  $("#lowBtn").addEventListener("click", () => sendFeedback("low"));
+  $("#midBtn").addEventListener("click", () => sendFeedback("mid"));
+
+  $("#editBtn").addEventListener("click", () => {
+    const ta = $("#reviewText");
+    ta.focus();
+    ta.setSelectionRange(ta.value.length, ta.value.length);
+  });
+  $("#againBtn").addEventListener("click", () => {
+    state.notes = $("#reviewText").dataset.notes || state.notes;
+    setState("rate");
+    generate();
+  });
+  $("#googleBtn").addEventListener("click", continueToGoogle);
+
+  $("#doneGoogle").addEventListener("click", () => {
+    window.open(BRANCH.googleReviewUrl, "_blank", "noopener");
+    $("#doneActions").hidden = true;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
